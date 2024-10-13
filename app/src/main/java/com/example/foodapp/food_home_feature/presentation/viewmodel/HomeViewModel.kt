@@ -9,6 +9,7 @@ import com.example.foodapp.food_home_feature.data.remote.models.Product
 import com.example.foodapp.food_home_feature.domain.use_case.CategoriesUseCase
 import com.example.foodapp.food_home_feature.domain.use_case.ProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ class HomeViewModel @Inject constructor(
 
 
     private fun fetchProducts() =
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val productsResponse = productsUseCase()
                 _products.value = handleResponse(productsResponse) { it.data }
@@ -47,7 +48,7 @@ class HomeViewModel @Inject constructor(
 
 
     private fun fetchCategories() =
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val categoriesResponse = categoriesUseCase()
                 _categories.value = handleResponse(categoriesResponse) { it.data }
@@ -55,7 +56,6 @@ class HomeViewModel @Inject constructor(
                 _categories.value = Resource.Error("An error occurred: ${e.localizedMessage}")
             }
         }
-
 
 
     fun selectCategory(index: Int) {
