@@ -200,7 +200,7 @@ fun ProductScreen(viewModel: HomeViewModel = hiltViewModel(), navController: Nav
 
 @Composable
 fun ProductCard(product: Product, navController: NavController) {
-    var isFavorited by remember { mutableStateOf(product.favorite == 1) }
+    var isFavorited by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -222,15 +222,12 @@ fun ProductCard(product: Product, navController: NavController) {
                     .padding(8.dp),
                 verticalAlignment = Alignment.Top
             ) {
-                val painter= rememberAsyncImagePainter(model = product.productImage)
+                val painter = rememberAsyncImagePainter(model = product.productImage)
                 Image(
                     painter = painter,
                     contentDescription = null,
                     modifier = Modifier
                         .size(120.dp)
-                        .clickable {
-                            isFavorited = !isFavorited
-                        }
                 )
 
                 IconButton(
@@ -241,13 +238,16 @@ fun ProductCard(product: Product, navController: NavController) {
                         .padding(start = 8.dp)
                         .align(Alignment.Top)
                 ) {
-                    val tintColor =
-                        if (isFavorited) colorResource(id = R.color.dark_blue) else colorResource(id = R.color.black)
+                    val favoriteIcon = if (isFavorited) {
+                        R.drawable.group_2
+                    } else {
+                        R.drawable.vector
+                    }
                     Image(
-                        painter = painterResource(id = R.drawable.vector),
+                        painter = painterResource(id = favoriteIcon),
                         contentDescription = "Favorite",
                         modifier = Modifier.size(24.dp),
-                        colorFilter = ColorFilter.tint(tintColor)
+                        colorFilter = ColorFilter.tint(colorResource(id = R.color.dark_blue))
                     )
                 }
             }
@@ -267,6 +267,7 @@ fun ProductCard(product: Product, navController: NavController) {
         }
     }
 }
+
 
 
 @Composable
