@@ -204,7 +204,7 @@ fun ProductDetailsScreen(
                                     shape = RoundedCornerShape(50),
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(
-                                            0xFF25D366
+                                            0xFF00E676
                                         )
                                     )
                                 ) {
@@ -223,7 +223,7 @@ fun ProductDetailsScreen(
                                     shape = RoundedCornerShape(50),
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(
-                                            0xFF007BFF
+                                            0xFF3F3F6F
                                         )
                                     )
                                 ) {
